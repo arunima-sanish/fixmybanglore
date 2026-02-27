@@ -1,0 +1,30 @@
+.status-badge {
+  display: inline-block;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.status-badge--pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge--in_progress {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-badge--resolved {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge--rejected {
+  background: #fee2e2;
+  color: #991b1b;
+}

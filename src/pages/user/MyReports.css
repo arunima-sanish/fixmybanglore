@@ -1,0 +1,107 @@
+.my-reports-page {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.my-reports-page h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.my-reports-intro {
+  margin: 0 0 1.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.my-reports-page .issues-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.my-reports-grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.my-report-card {
+  padding: 1.25rem 1.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.my-report-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.my-report-card__title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.my-report-card__desc {
+  margin: 0 0 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.my-report-card__meta {
+  margin: 0.25rem 0;
+  font-size: 0.875rem;
+  color: var(--color-text-subtle);
+}
+
+.my-report-card__meta strong {
+  color: var(--color-text-muted);
+  margin-right: 0.35rem;
+}
+
+.my-report-card__images {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.my-report-card__thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+.my-report-card__link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.my-report-card__link:hover {
+  text-decoration: underline;
+}
+
+.no-reports {
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--color-text-subtle);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border);
+  font-size: 0.9375rem;
+}

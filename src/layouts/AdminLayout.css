@@ -1,0 +1,13 @@
+.admin-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-layout__main {
+  flex: 1;
+  padding: 0;
+  background-color: var(--color-bg-subtle);
+  background-image:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(15, 23, 42, 0.04), transparent);
+}

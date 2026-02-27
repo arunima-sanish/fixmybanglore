@@ -1,0 +1,75 @@
+.admin-dashboard {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+.admin-dashboard h1 {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.dashboard-intro {
+  margin: 0 0 1.75rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+}
+
+.dashboard-section {
+  margin-bottom: 2rem;
+}
+
+.dashboard-section h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.section-hint {
+  margin: 0 0 0.75rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-subtle);
+}
+
+.section-hint code {
+  background: var(--color-bg-subtle);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}
+
+.users-list {
+  margin: 0;
+  padding: 0 0 0 1.25rem;
+  list-style: disc;
+}
+
+.users-list li {
+  margin-bottom: 0.35rem;
+  font-size: 0.9375rem;
+  color: var(--color-text);
+}
+
+.user-date {
+  font-size: 0.8125rem;
+  color: var(--color-text-subtle);
+}
+
+.admin-dashboard .issues-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-dashboard .no-issues {
+  padding: 3rem 2rem;
+  text-align: center;
+  color: var(--color-text-subtle);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--color-border);
+  font-size: 0.9375rem;
+}
