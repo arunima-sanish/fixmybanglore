@@ -65,9 +65,14 @@
 }
 
 .report-detail__img {
-  width: 160px;
-  height: 120px;
+  width: 300px;
+  height: 220px;
   object-fit: cover;
   border-radius: var(--radius-md);
   border: 1px solid var(--color-border);
+}
+
+.report-detail__status-select {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
 }

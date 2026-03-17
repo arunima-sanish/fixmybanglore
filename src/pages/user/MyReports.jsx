@@ -33,6 +33,12 @@ function MyReports() {
   return (
     <div className="my-reports-page">
       <h1>My Reports</h1>
+      <select
+              id="place-filter"
+              value={selectedPlace}
+              onChange={(e) => setSelectedPlace(e.target.value)}
+              className="home-filter__select"
+            ></select>
       <p className="my-reports-intro">
         Issues you reported ({user?.email ?? 'you'}).
       </p>

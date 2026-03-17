@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import api from '../../services/api';
+import StatusBadge from '../../components/StatusBadge';
 import './Home.css';
 
+
+const AREAS = ['All', 'Koramangala', 'Indiranagar', 'Whitefield', 'HSR Layout', 'Jayanagar', 'MG Road'];
 const QUOTES = [
   { text: 'A city that works is a city where citizens speak up.', author: 'Fix My Bangalore' },
   { text: 'Every reported issue is a step toward a better Bangalore.', author: 'Community' },
@@ -22,6 +26,11 @@ const CAROUSEL_IMAGES = [
 function Home() {
   const { user } = useAuth();
   const [quoteIndex, setQuoteIndex] = useState(0);
+  const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [places, setPlaces] = useState([]);
+  const [selectedPlace, setSelectedPlace] = useState('All');
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -29,6 +38,57 @@ function Home() {
     }, 4500);
     return () => clearInterval(id);
   }, []);
+
+  // Load reports whenever selectedPlace changes (you will see /api/reports?... in Network)
+  useEffect(() => {
+    let cancelled = false;
+
+    const fetchReports = async () => {
+      try {
+        setLoading(true);
+        const params =
+          selectedPlace && selectedPlace !== 'All'
+            ? `?place=${encodeURIComponent(selectedPlace)}`
+            : '';
+        const res = await fetch(`/api/reports${params}`);
+        const data = await res.json();
+        if (!cancelled) {
+          setReports(Array.isArray(data) ? data : []);
+          setError(null);
+        }
+      } catch (err) {
+        if (!cancelled) {
+          setError(err.message ?? 'Failed to load community reports');
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchReports();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedPlace]);
+
+
+  // Load list of places once (from /api/places)
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const data = await api.getPlaces();
+        setPlaces(Array.isArray(data) ? data : []);
+      } catch (error) {
+        console.error('Error fetching places:', error);
+      }
+    };
+
+    fetchPlaces();
+  }, []);
+
 
   return (
     <div className="home-page">
@@ -53,18 +113,66 @@ function Home() {
         </div>
       </section>
 
-      <section className="home-quotes">
-        <div className="home-quotes__container">
-          {QUOTES.map((q, i) => (
-            <blockquote
-              key={i}
-              className={`home-quotes__quote ${i === quoteIndex ? 'home-quotes__quote--active' : ''}`}
+      <section className="home-content">
+        <div className="home-section-header">
+          <h2 className="home-section-title">Community Reports</h2>
+          <div className="home-filter">
+            <label htmlFor="place-filter">Filter by Place:</label>
+            <select
+              id="place-filter"
+              value={selectedPlace}
+              onChange={(e) => setSelectedPlace(e.target.value)}
+              className="home-filter__select"
             >
-              <p className="home-quotes__text">"{q.text}"</p>
-              <cite className="home-quotes__author">— {q.author}</cite>
-            </blockquote>
-          ))}
+              {AREAS.map((area) => (
+                <option key={area} value={area}>
+                  {area}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
+        <p className="home-intro">Recent issues reported by citizens across Bangalore.</p>
+
+        {loading ? (
+          <div className="page-loading">Loading reports...</div>
+        ) : error ? (
+          <div className="page-error">{error}</div>
+        ) : reports.length === 0 ? (
+          <div className="no-issues">No issues reported yet. Be the first!</div>
+        ) : (
+          <div className="reports-list">
+            {(selectedPlace === 'All'
+              ? reports
+              : reports.filter((r) =>
+                  r.address?.toLowerCase().includes(selectedPlace.toLowerCase())
+                )
+            )
+              .slice(0, 6)
+              .map((report) => (
+              <article key={report.id} className="report-card">
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+                  <h3 className="report-card__title">{report.title}</h3>
+                  <StatusBadge status={report.status || 'pending'} />
+                </div>
+                {report.description && (
+                  <p className="report-card__desc">{report.description}</p>
+                )}
+                <div className="report-card__footer">
+                  <p className="report-card__meta">
+                    <strong>Category:</strong> {report.category || 'General'}
+                  </p>
+                  <p className="report-card__meta">
+                    <strong>Address:</strong> {report.address || 'N/A'}
+                  </p>
+                  <Link to={`/issue/${report.id}`} className="my-report-card__link" style={{ marginTop: '0.75rem', display: 'inline-block' }}>
+                    View Details
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
       <section className="home-carousel-wrap">
@@ -78,6 +186,20 @@ function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="home-quotes">
+        <div className="home-quotes__container">
+          {QUOTES.map((q, i) => (
+            <blockquote
+              key={i}
+              className={`home-quotes__quote ${i === quoteIndex ? 'home-quotes__quote--active' : ''}`}
+            >
+              <p className="home-quotes__text">"{q.text}"</p>
+              <cite className="home-quotes__author">— {q.author}</cite>
+            </blockquote>
+          ))}
         </div>
       </section>
     </div>
