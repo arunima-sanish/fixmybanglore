@@ -96,6 +96,13 @@
   text-decoration: underline;
 }
 
+/* status select dropdown added for user reports */
+.my-report-card__status-select {
+  margin-left: auto;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+}
+
 .no-reports {
   padding: 3rem 2rem;
   text-align: center;

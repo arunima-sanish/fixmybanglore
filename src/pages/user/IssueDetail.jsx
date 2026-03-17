@@ -13,7 +13,7 @@ function IssueDetail() {
   useEffect(() => {
     let cancelled = false;
     api
-      .getIssue(id)
+      .getReport(id)
       .then((data) => {
         if (!cancelled) setIssue(data);
       })

@@ -29,6 +29,7 @@ function Register() {
       await register(email, password);
       navigate('/', { replace: true });
     } catch (err) {
+      console.error(error);
       setError(err.message ?? 'Signup failed');
     } finally {
       setLoading(false);

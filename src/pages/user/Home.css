@@ -7,11 +7,11 @@
 /* ----- Landing hero ----- */
 .home-landing {
   position: relative;
-  min-height: 78vh;
+  min-height: 45vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6rem 2rem 8rem;
+  padding: 4rem 2rem 5rem;
   background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1920&q=85');
   background-size: cover;
   background-position: center;
@@ -224,8 +224,13 @@
 }
 
 @keyframes home-carousel-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* ----- Legacy / shared (kept for other pages) ----- */
@@ -236,12 +241,60 @@
   background: var(--color-bg);
 }
 
+.home-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .home-section-title {
-  margin: 0 0 1.25rem;
+  margin: 0;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: -0.02em;
+}
+
+.home-filter {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.home-filter label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.home-filter__select {
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.home-filter__select:hover {
+  border-color: var(--color-text-subtle);
+}
+
+.home-filter__select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
 .home-intro {

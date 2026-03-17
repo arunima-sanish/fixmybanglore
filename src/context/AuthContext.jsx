@@ -32,6 +32,7 @@ export function AuthProvider({ children }) {
     const userData = { email: data.email ?? email, role: data.role ?? 'user', token: data.token };
     setUser(userData);
     localStorage.setItem('fixmybanglore_user', JSON.stringify(userData));
+    return userData; // return so callers can inspect role/other info
   };
 
   const register = async (email, password) => {
@@ -48,6 +49,7 @@ export function AuthProvider({ children }) {
     const userData = { email: data.email ?? email, role: data.role ?? 'user', token: data.token };
     setUser(userData);
     localStorage.setItem('fixmybanglore_user', JSON.stringify(userData));
+    return userData; // might be useful later
   };
 
   const logout = () => {

@@ -19,8 +19,15 @@ function Login() {
     setError('');
     setLoading(true);
     try {
-      await login(email, password);
-      navigate(from, { replace: true });
+      const userData = await login(email, password);
+      let destination;
+      if (userData.role === 'admin') {
+        destination = '/admin/dashboard';
+      } else {
+        destination = '/';
+      }
+
+      navigate(destination, { replace: true });
     } catch (err) {
       setError(err.message ?? 'Login failed');
     } finally {

@@ -16,17 +16,24 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <UserLayout />
-              </ProtectedRoute>
-            }
-          >
+          <Route path="/" element={<UserLayout />}>
             <Route index element={<Home />} />
-            <Route path="report" element={<ReportIssue />} />
-            <Route path="my-reports" element={<MyReports />} />
+            <Route
+              path="report"
+              element={
+                <ProtectedRoute>
+                  <ReportIssue />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="my-reports"
+              element={
+                <ProtectedRoute>
+                  <MyReports />
+                </ProtectedRoute>
+              }
+            />
             <Route path="report-detail/:id" element={<ReportDetail />} />
             <Route path="issue/:id" element={<IssueDetail />} />
           </Route>
