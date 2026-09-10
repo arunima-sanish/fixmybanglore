@@ -31,4 +31,4 @@ dist-ssr
 
 # Uploaded files (stored on server filesystem)
 uploads
-server/uploads
+backend/uploads

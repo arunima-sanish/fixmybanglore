@@ -1,0 +1,26 @@
+{
+  "name": "fixmybanglore-backend",
+  "version": "1.0.0",
+  "description": "Fix My Bangalore API (Express + PostgreSQL)",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "db:setup": "node scripts/create-db.js && node seedAdmin.js",
+    "seed": "node seedAdmin.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.0.2",
+    "pg": "^8.23.0"
+  }
+}

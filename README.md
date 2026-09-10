@@ -1,16 +1,63 @@
-# React + Vite
+# Fix My Bangalore
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Civic issue reporting app. The repo is split into two independent apps:
 
-Currently, two official plugins are available:
+```
+fixmybanglore/
+├── frontend/   React 19 + Vite + Tailwind (shadcn/radix UI)
+└── backend/    Express 5 + PostgreSQL (node-postgres)
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Frontend
 
-## React Compiler
+```bash
+cd frontend
+npm install
+npm run dev        # http://localhost:5173
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+`vite.config.js` proxies `/api` and `/uploads` to the backend at `http://localhost:5000`.
 
-## Expanding the ESLint configuration
+Scripts: `dev`, `build`, `preview`, `lint`.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Backend
+
+Needs a local PostgreSQL server running (any recent version).
+
+```bash
+cd backend
+npm install
+cp .env.example .env          # then edit DATABASE_URL with your Postgres password
+npm run db:setup              # creates the database, tables, and the admin user
+npm run dev                   # http://localhost:5000  (node --watch)
+```
+
+Scripts:
+
+| Script | What it does |
+| --- | --- |
+| `start` / `dev` | run the API (`dev` restarts on file change) |
+| `db:setup` | create the database (`scripts/create-db.js`) + tables + admin (`seedAdmin.js`) |
+| `seed` | create/re-promote the admin user only |
+
+The server also runs `schema.sql` on every start, so the tables are created automatically
+if the database already exists.
+
+### Environment (`backend/.env`)
+
+| Var | Purpose |
+| --- | --- |
+| `DATABASE_URL` | `postgresql://user:password@host:5432/fixmybangalore` |
+| `JWT_SECRET` | secret for signing login tokens |
+
+### Schema
+
+Two tables, defined in [`backend/schema.sql`](backend/schema.sql):
+
+- `users` — `id`, `email`, `password` (bcrypt), `role` (`user` \| `admin`), timestamps
+- `reports` — issue fields (`title`, `description`, `category`, `status`, `location` JSONB,
+  `address`, `images` TEXT[], `reported_by`, `contact`, `severity`, `admin_notes`), timestamps
+
+Default admin after `db:setup`: **admin@gmail.com** / **Admin@123**.
+
+Uploaded images are stored on disk in `backend/uploads/` (git-ignored).
